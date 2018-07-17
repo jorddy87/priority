@@ -38,8 +38,21 @@ public class Priorities {
         final String name = parts[1];
         final int id = Integer.valueOf(parts[3]);
         final double cgpa = Double.valueOf(parts[2]);
+        validateStudentFields(name, id, cgpa);
 
         return new Student(id, name, cgpa);
+    }
+
+    private void validateStudentFields(final String name, final int id, final double cgpa) {
+        if((name.length() < 2 || name.length() > 30)) {
+            throw new IllegalArgumentException(" Name out of range: "+name);
+        }
+        if((id < 1 || id > Math.pow(10,5))) {
+            throw new IllegalArgumentException(" ID out of range: "+id);
+        }
+        if((cgpa < 0 || cgpa > 4.00)) {
+            throw new IllegalArgumentException(" The value of CGPA is not valid: "+cgpa);
+        }
     }
 
     private void enqueueStudent(final Student student) { this.studentPriorityQueue.offer(student); }
